@@ -25,6 +25,10 @@ rdd = spark.read.format("csv") \
         .option("header", True) \
         .load(file_loc)
 
+# To read things... 
+rdd.show()
+rdd.printSchema()
+
 # 1.2
 # We can use structs explicitly to construct the schema.
 # It's more annoying, but you know exactly what you're getting.
