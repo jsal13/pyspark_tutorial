@@ -135,9 +135,42 @@ sdf_names.show()
 
 # 2.2.3
 
+def make_initials(first, last):
+    return first[0] + last[0]
 
+# We could also have passed in a lambda to udf() for simple functions.
+make_initials_udf = F.udf(make_initials, StringType())
+initials_col = make_initials_udf(sdf_names["first_name"], sdf_names["last_name"])
 
+# Make new column.
+sdf_names_w_initials = sdf_names.withColumn("initials", initials_col)
+sdf_names_w_initials.show()
 
+# 2.2.4
+
+# One way of doing this without any Spark builtins is:
+lowercase_initials_udf = F.udf(lambda x: x.lower(), StringType())
+lowercase_initials_col = lowercase_initials_udf(sdf_names_w_initials["initials"])
+sdf_names_w_initials = sdf_names_w_initials.withColumn("initials", lowercase_initials_col)
+sdf_names_w_initials.show()
+</code></pre>
+
+    <h2>Section 3</h2>
+    <pre><code class="language-python">
+# 3.1
+
+features = spark.read.format("csv") \
+    .option("inferSchema", True) \
+    .option("header", True) \
+    .load("./iris_features.csv")
+
+labels = spark.read.format("csv") \
+    .option("inferSchema", True) \
+    .option("header", True) \
+    .load("./iris_labels.csv")
+
+  
+# 3.2
 
 </code></pre>
 
