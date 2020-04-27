@@ -159,16 +159,6 @@ sdf_names_w_initials.show()
     <pre><code class="language-python">
 # 3.1
 
-features = spark.read.format("csv") \
-    .option("inferSchema", True) \
-    .option("header", True) \
-    .load("./iris_features.csv")
-
-labels = spark.read.format("csv") \
-    .option("inferSchema", True) \
-    .option("header", True) \
-    .load("./iris_labels.csv")
-
   
 # 3.2
 
